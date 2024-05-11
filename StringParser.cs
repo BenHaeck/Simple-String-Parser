@@ -15,22 +15,23 @@ namespace Parser {
 			for (int i = 0; i < vStrings.Length; i++) {
 				// splits the the current name value pair into an array with the first element being the name, and the second being the value
 				var nameAndVars = vStrings[i].Split ('=', 2);
-
+				nameAndVars[0] = RemoveWhiteSpace(RemoveEnclosed(nameAndVars[0], COMMENT_START_SIGN, '\n'));
+			
 				if (nameAndVars.Length < 2) { // makes sure it split properly
-					if (RemoveWhiteSpace(nameAndVars[0]).Length > 0) { // it the substring is empty, then don't print the error message
+					if (nameAndVars[0].Length > 0) { // it the substring is empty, then don't print the error message
 						Debug.WriteLine ($"Error in statement {nameAndVars[0]}\nYou've ether forgotten an '='");
 					}
-
+			
 					continue;
 				}
-
+			
 				// gets the name
-				string name = RemoveWhiteSpace(nameAndVars[0]);
+				string name = nameAndVars[0];
 				string[] vars; // declares the variables
-				int strStart = nameAndVars[1].IndexOf (strStartNote); // if this is a string literal, then it will get the start of the string literal
-
+				int strStart = nameAndVars[1].IndexOf (LITERAL_START_SIGN); // if this is a string literal, then it will get the start of the string literal
+			
 				if (strStart != -1) { // if it is a string literal, it will cut everything before the start
-					vars = new string[] { nameAndVars[1].Substring(strStart+strStartNote.Length) };
+					vars = new string[] { nameAndVars[1].Substring(strStart+LITERAL_START_SIGN.Length) };
 				}
 				else { // if not it will split it appart where ever a ',' appears and remove all of the white space
 					vars = RemoveWhiteSpace(nameAndVars[1]).Split(',');
@@ -149,6 +150,30 @@ namespace Parser {
 		public static string RemoveWhiteSpace (string s) {
 			return s.Replace (" ", "").Replace("\n", "").Replace("\t", "");
 		}
+
+		// looks for two characters, and removes any character between them
+		public static string RemoveEnclosed (string s, char opening, char closing) {
+			string s2 = s;
+			while (true) {
+				// finds the opening character
+				int i1 = s2.IndexOf (opening);
+				if (i1 <= -1) break; 
+				string before = s2.Substring (0, i1);
+		
+				// finds the ending character
+				int i2 = s2.IndexOf (closing, i1+1);
+				if (i2 <= -1) { // returns the before portion if it can't find an ending character
+					return before;
+				}
+				string after = s2.Substring (i2+1);
+		
+				// stitches together the text before and after then enclosed characters
+				s2 = before + after;
+			}
+
+			return s2;
+		}
+		
 		public static string Serialize (string name, string val) {
 			return $"{name} = {val};";
 		}
