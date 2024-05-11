@@ -149,6 +149,25 @@ namespace Parser {
 		public static string RemoveWhiteSpace (string s) {
 			return s.Replace (" ", "").Replace("\n", "").Replace("\t", "");
 		}
+		public static string Serialize (string name, string val) {
+			return $"{name} = {val};";
+		}
+
+		public static string SerializeAsStringLiteral (string name, string val) {
+			return $"{name} = {strStartNote}{val};";
+		}
+
+
+		// converts an array to a string that follows the parsers syntax
+		public static string ArrayToString<T> (T[] a) {
+			string res = $"{a[0]}";
+
+			for (int i = 1; i < a.Length; i++) {
+				res += $", {a[i]}";
+			}
+
+			return res;
+		}
 	}
 
 	
