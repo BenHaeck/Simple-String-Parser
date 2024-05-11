@@ -12,7 +12,7 @@ namespace Parser {
 
 		// constructor
 		public StringParser (string s) {
-
+			s = s.Replace('\r', '\n'); // fixes replace white space not working on crlf strings
 			// every line that has a name value pair
 			var vStrings = s.Split (';');
 			
