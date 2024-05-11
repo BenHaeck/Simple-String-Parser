@@ -1,6 +1,9 @@
 # Simple-String-Parser
 A simple string parser with extremely permissive syntax
 
+The point of this library is to be able to store and read information to and from a file in a format thats human readable and human editable.
+Similar to JSON, but a lot less complex, and with a much more forgiving syntax.
+
 # Syntax
 ```
 Health = 20;  
