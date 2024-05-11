@@ -3,7 +3,7 @@ using System.Diagnostics;
 namespace Parser {
 
 	public class StringParser {
-		const string strStartNote = "\\s";
+		const string strStartNote = "/s";
 
 		Dictionary<string, string[]> fileVars = new Dictionary<string, string[]> ();
 
