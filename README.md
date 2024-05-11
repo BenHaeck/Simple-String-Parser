@@ -8,11 +8,12 @@ Similar to JSON, but a lot less complex, and with a much more forgiving syntax.
 ```
 Health = 20;  
 Size = 32, 32;  
-Recovery = 0.5;  
+Recovery = 0.5;
+# this is a comment  
 Dead = false;  
 Name = Jimmy;  
 Backstory = /sI was once a warrior like you  
-Then I took an arrow to the knee;
+Then I took an arrow to the knee # this is not a comment;
 ```
 
 Basically, the syntax goes like this  
