@@ -18,7 +18,7 @@ Then I took an arrow to the knee # this is not a comment;
 
 Basically, the syntax goes like this  
 `name = value1, value2, value3;`  
-`stringLiteral = /sLiteraly, literal`  
+`stringLiteral = /sLiteraly, literal;`  
 As long as every line follows these line templates, there valid.
 
 # Permissive syntax
