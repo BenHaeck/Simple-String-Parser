@@ -18,6 +18,7 @@ gets the values attached to a name as an array of ints
 `public float[] GetAsFloats (string name)`  
 gets the values attached to a name as an array of floats
 
+### GetAsTypeOrDef get a value, or if that value does not exist, it will return a default value
 `public string GetAsStringOrDef(string name, string def)`  
 gets the first value in a list attach to a name or returns the default value if that name isn't bound to anything
 
