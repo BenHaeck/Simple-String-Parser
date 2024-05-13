@@ -109,37 +109,48 @@ namespace Parser {
 		public static int ParseInt (string s) {
 			int num = 0;
 
+			int neg = 1;
+			
+			
 			for (int i = 0; i < s.Length; i++) {
+			
 				if ('0' <= s[i] && s[i] <= '9') {
 					num = 10 * num + (s[i]-'0');
+				} else if (s[i] == '-' && num == 0) {
+					neg *= -1;
 				} else if (s[i] == '.') {
 					break;
 				}
 			}
-
-			return num;
+			
+			return num * neg;
 		}
 
 		public static float ParseFloat (string s) {
 			int i;
 			float num = 0;
+			float neg = 1;
 			// parses the part before the decimal
 			for (i = 0; i < s.Length; i++) {
 				if ('0' <= s[i] && s[i] <= '9') {
 					num = 10 * num + (s[i]-'0');
 				}
+				else if (s[i] == '-' && num < 0.1f) {
+					neg *= -1f;
+					Debug.WriteLine (num + " " + neg);
+				}
 				else if (s[i] == '.') {
 					break;
 				}
 			}
-
+			
 			// handles the case where theres no decimal
 			if (i >= s.Length)
-				return num;
-
+				return num * neg;
+			
 			if (s[i] != '.')
-				return num;
-
+				return num * neg;
+			
 			// parses the part after the decimal
 			float mult = 0.1f;
 			for (i = i+1; i < s.Length; i++) {
@@ -148,8 +159,8 @@ namespace Parser {
 					mult *= 0.1f;
 				}
 			}
-
-			return num;
+			Debug.WriteLine (neg);
+			return num * neg;
 		}
 
 		// removes white space like spaces, new lines, and tabs
